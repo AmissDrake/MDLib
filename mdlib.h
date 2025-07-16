@@ -48,14 +48,26 @@ private:
     motor* m3;
     motor* m4;
 
+    int wheel1speed = 1;
+    int wheel2speed = 1;
+    int wheel3speed = 1;
+    int wheel4speed = 1;
+
     int 4wMatrix[4][3] = {
-        {1, 1, 1}, // Forward
-        {1, 1, 0}, // Right
-        {1, 0, 1}, // Left
-        {0, 1, 1}  // Backward
+        {wheel1speed, wheel1speed, wheel1speed}, // Forward
+        {wheel2speed, wheel2speed, wheel2speed}, // Right
+        {wheel3speed, wheel3speed, wheel3speed}, // Left
+        {wheel4speed, wheel4speed, wheel4speed}  // Backward
+    };
+
+    int 3wMatrix[5][3] =  {
+        {wheel1speed, wheel1speed, wheel1speed}, // Forward
+        {wheel2speed, wheel2speed, wheel2speed}, // Right
+        {wheel3speed, wheel3speed, wheel3speed}, // Left
     };
 
 public:
+    // 4 wheel drive
     drive(motor* m1, motor* m2, motor* m3, motor* m4);
     setWheelSpeed(int wheel1speed, int wheel2speed, int wheel3speed, int wheel4speed);
     drive(motor* m1, motor* m2, motor* m3);

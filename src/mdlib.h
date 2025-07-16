@@ -3,17 +3,32 @@
 
 #include <arduino.h>
 
-#define FORWARD 1
-// Forwards is clockwise
-#define BACKWARD 0
-// Backwards is counter-clockwise
+// Forwards is counter-clockwise
+// Backwards is clockwise
+// Left is Y axis
+// Right is X axis
+// Positive Rotation is from X to Y axis
+
+enum Direction {
+    CCW = 1, 
+    CW = 0
+};
 
 class motor{
 private:
     int PWMpin; // PWM pin
-    int DIRpin; // Direction pin
+    int DIRpin1; // Direction pin
+    int DIRpin2; // Second direction pin for three-pin motors
+    int DIRpin; // Direction pin for two-pin motors
     bool reverse; // Direction flag
     bool feedback; // Feedback flag
+
+    enum MD_TYPE {
+        TWO_PIN_MD,
+        THREE_PIN_MD,
+    };
+
+    MD_TYPE mdType; // Motor type
 
     // Motor Parameters
     int maxSpeed = 255; // Maximum speed
@@ -23,17 +38,18 @@ private:
 
 public:
     motor(int PWMpin, int DIRpin, bool reverse = false);
+    motor(int PWMpin, int DIRpin1, int DIRpin2, bool reverse = false);
     void attachEncoder(int encoderPinA, int encoderPinB);
     void threshold(int max, int min);
-    void spin(int speed, int direction);
+    void spin(int speed, Direction direction);
     void setSpeed(int speed);
     void stop();
-    void ramptoSpeed(int speed, int rampTime = 1000);
+    //void ramptoSpeed(int speed, int rampTime = 1000);
 
     // Getters for motor parameters
     bool isReversed() const { return reverse; }
-    bool PWMpin() const { return PWMpin; }
-    bool DIRpin() const { return DIRpin; }
+    int getPWMpin() const { return PWMpin; }
+    int getDIRpin() const { return DIRpin; }
 }
 
 class drive{
@@ -53,26 +69,17 @@ private:
     int wheel3speed = 1;
     int wheel4speed = 1;
 
-    int 4wMatrix[4][3] = {
-        {wheel1speed, wheel1speed, wheel1speed}, // Forward
-        {wheel2speed, wheel2speed, wheel2speed}, // Right
-        {wheel3speed, wheel3speed, wheel3speed}, // Left
-        {wheel4speed, wheel4speed, wheel4speed}  // Backward
-    };
-
-    int 3wMatrix[5][3] =  {
-        {wheel1speed, wheel1speed, wheel1speed}, // Forward
-        {wheel2speed, wheel2speed, wheel2speed}, // Right
-        {wheel3speed, wheel3speed, wheel3speed}, // Left
-    };
 
 public:
     // 4 wheel drive
     drive(motor* m1, motor* m2, motor* m3, motor* m4);
-    setWheelSpeed(int wheel1speed, int wheel2speed, int wheel3speed, int wheel4speed);
+    void setWheelSpeed(int wheel1speed, int wheel2speed, int wheel3speed, int wheel4speed);
     drive(motor* m1, motor* m2, motor* m3);
+    void setWheelSpeed(int wheel1speed, int wheel2speed, int wheel3speed);
 
-    void setWheelCount(WheelCount count);
+    void move(int vx, int vy, int omega);
+    void stop();
+
     WheelCount getWheelCount() const { return wheelCount; }
 }
 

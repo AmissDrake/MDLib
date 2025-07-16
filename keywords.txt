@@ -1,0 +1,39 @@
+#######################################
+# Syntax highlighting for MDLib
+#######################################
+
+# Classes
+motor	        KEYWORD1
+drive	        KEYWORD1
+
+# Enum Constants
+CCW             LITERAL1
+CW              LITERAL1
+TWO_PIN_MD      LITERAL1
+THREE_PIN_MD    LITERAL1
+THREE_WHEEL     LITERAL1
+FOUR_WHEEL      
+
+# Enum Types
+Direction       KEYWORD1
+MD_TYPE         KEYWORD1
+WheelCount      KEYWORD1
+
+# Constructors
+motor	        KEYWORD2
+drive	        KEYWORD2
+
+# Public Methods - motor
+attachEncoder   KEYWORD2
+threshold       KEYWORD2
+spin            KEYWORD2
+setSpeed        KEYWORD2
+stop            KEYWORD2
+isReversed      KEYWORD2
+getPWMpin       KEYWORD2
+getDIRpin       KEYWORD2
+
+# Public Methods - drive
+setWheelSpeed   KEYWORD2
+move            KEYWORD2
+getWheelCount   KEYWORD2

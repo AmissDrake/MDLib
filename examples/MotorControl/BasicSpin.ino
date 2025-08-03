@@ -1,5 +1,5 @@
-#include <MDLib.h>
 #include <Arduino.h>
+#include <MDLib.h>
 
 // Example for a single motor control
 // This example demonstrates basic motor control using the MDLib library

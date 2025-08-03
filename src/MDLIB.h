@@ -1,7 +1,7 @@
 #ifndef MDLIB_H
 #define MDLIB_H
 
-#include <arduino.h>
+#include <Arduino.h>
 
 // Forwards is counter-clockwise
 // Backwards is clockwise

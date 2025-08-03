@@ -1,4 +1,4 @@
-#include <mdlib.h>
+#include <MDLIB.h>
 
 
 motor::motor(int PWMpin, int DIRpin, bool reverse) {

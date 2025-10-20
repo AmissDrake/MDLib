@@ -3,37 +3,35 @@
 #######################################
 
 # Classes
-motor	        KEYWORD1
-drive	        KEYWORD1
+Motor           KEYWORD1
+MotorTwopin     KEYWORD1
+MD10C           KEYWORD1
+SmartElex       KEYWORD1
+MD20C           KEYWORD1
+L298N           KEYWORD1
+BTS7960         KEYWORD1
+Drive           KEYWORD1
 
 # Enum Constants
 CCW             LITERAL1
 CW              LITERAL1
-TWO_PIN_MD      LITERAL1
-THREE_PIN_MD    LITERAL1
 THREE_WHEEL     LITERAL1
-FOUR_WHEEL      
+FOUR_WHEEL      LITERAL1
 
 # Enum Types
 Direction       KEYWORD1
-MD_TYPE         KEYWORD1
 WheelCount      KEYWORD1
 
-# Constructors
-motor	        KEYWORD2
-drive	        KEYWORD2
-
-# Public Methods - motor
-attachEncoder   KEYWORD2
-threshold       KEYWORD2
-spin            KEYWORD2
-setSpeed        KEYWORD2
-stop            KEYWORD2
-isReversed      KEYWORD2
-getPWMpin       KEYWORD2
-getDIRpin       KEYWORD2
-
-# Public Methods - drive
-setWheelSpeed   KEYWORD2
-move            KEYWORD2
-getWheelCount   KEYWORD2
+# Public Methods
+attachEncoder       KEYWORD2
+threshold           KEYWORD2
+spin                KEYWORD2
+setSpeed            KEYWORD2
+stop                KEYWORD2
+isReversed          KEYWORD2
+hasFeedback         KEYWORD2
+getMaxSpeed         KEYWORD2
+getMinSpeed         KEYWORD2
+setWheelSpeedFactor KEYWORD2
+move                KEYWORD2
+getWheelCount       KEYWORD2

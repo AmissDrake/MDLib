@@ -5,12 +5,12 @@
 // This example demonstrates how to control a 4-wheel drive robot using the MDLib library
 // It sets up four motors and moves the robot in different directions
 
-motor m1(5, 6);
-motor m2(9, 10);
-motor m3(3, 4);
-motor m4(7, 8);
+Motor m1(5, 6);
+Motor m2(9, 10);
+Motor m3(3, 4);
+Motor m4(7, 8);
 
-drive bot(&m1, &m2, &m3, &m4);
+Drive bot(&m1, &m2, &m3, &m4);
 
 void setup() {
   bot.setWheelSpeed(1, 1, 1, 1);

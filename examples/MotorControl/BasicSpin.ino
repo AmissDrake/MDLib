@@ -7,7 +7,7 @@
 
 // Reverse the motor direction if needed
 
-motor m1(5, 6); // PWM, DIR
+Motor m1(5, 6); // PWM, DIR
 
 void setup() {
   m1.threshold(200, 50); // Set min and max speed

@@ -1,8 +1,8 @@
 #include <Arduino.h>
 #include <MDLib.h>
 
-motor m1(5, 6, false);
-motor m2(9, 10, false);
+Motor m1(5, 6, false);
+Motor m2(9, 10, false);
 
 void setup() {
   m1.setSpeed(200);

@@ -30,7 +30,7 @@ void Motor::threshold(int max, int min) {
 
 void MotorTwopin::spin(int speed, Direction direction) {
     // Ensure speed is within bounds
-    speed = constrain(speed, this->minSpeed, maxSpeed);
+    speed = constrain(speed, minSpeed, maxSpeed);
     analogWrite(PWMpin, speed);
     
     // Set direction
@@ -57,7 +57,7 @@ void MotorTwopin::stop() {
 
 void L298N::spin(int speed, Direction direction) {
     // Ensure speed is within bounds
-    speed = constrain(speed, this->minSpeed, maxSpeed);
+    speed = constrain(speed, minSpeed, maxSpeed);
     analogWrite(PWMpin, speed);
     
     // Set direction
@@ -85,18 +85,26 @@ void BTS7960::spin(int speed, Direction direction) {
     // Set direction
     if (isReversed()) { direction = (Direction)(direction ^ 1); }
     // Ensure speed is within bounds
-    speed = constrain(speed, this->minSpeed, maxSpeed);
+    speed = constrain(speed, minSpeed, maxSpeed);
 
     if (direction == CCW) {
         analogWrite(LPWMpin, speed);
+        if (LENpin != -1) {
         digitalWrite(LENpin, HIGH);
+        }
         analogWrite(RPWMpin, 0);
+        if (RENpin != -1) {
         digitalWrite(RENpin, LOW);
+        }
     } else {
         analogWrite(LPWMpin, 0);
+        if (LENpin != -1) {
         digitalWrite(LENpin, LOW);
+        }
         analogWrite(RPWMpin, speed);
+        if (RENpin != -1) {
         digitalWrite(RENpin, HIGH);
+        }
     }
 }
 
@@ -145,19 +153,19 @@ void Drive::setWheelSpeedFactor(float wheel1speed, float wheel2speed, float whee
     this->wheel3speed = wheel3speed;
     
     // Update the 3-wheel matrix
-    Matrix3w[0][0] = -(2.0/sqrt(3.0)) * wheel1speed; // M1 Front Left Forward 
-    Matrix3w[0][1] = (1.0/2.0) * wheel1speed;       // M1 Front Left Left
-    Matrix3w[0][2] = wheel1speed;               // M1 Front Left Rotate
-    Matrix3w[1][0] = (2.0/sqrt(3.0)) * wheel2speed; // M2 Front Right Forward
-    Matrix3w[1][1] = (1.0/2.0) * wheel2speed;       // M2 Front Right Left
-    Matrix3w[1][2] = wheel2speed;               // M2 Front Right Rotate
-    Matrix3w[2][0] = 0;                          // M3 Back Forward
-    Matrix3w[2][1] = wheel3speed;               // M3 Back Left
-    Matrix3w[2][2] = wheel3speed;               // M3 Back Rotate
+    Matrix3w[0][0] = -(2.0/sqrt(3.0)) * wheel1speed;    // M1 Front Left Forward 
+    Matrix3w[0][1] = (1.0/2.0) * wheel1speed;           // M1 Front Left Left
+    Matrix3w[0][2] = wheel1speed;                       // M1 Front Left Rotate
+    Matrix3w[1][0] = (2.0/sqrt(3.0)) * wheel2speed;     // M2 Front Right Forward
+    Matrix3w[1][1] = (1.0/2.0) * wheel2speed;           // M2 Front Right Left
+    Matrix3w[1][2] = wheel2speed;                       // M2 Front Right Rotate
+    Matrix3w[2][0] = 0;                                 // M3 Back Forward
+    Matrix3w[2][1] = wheel3speed;                       // M3 Back Left
+    Matrix3w[2][2] = wheel3speed;                       // M3 Back Rotate
 }
 
 void Drive::move(int vx, int vy, int omega) {
-    if (this->wheelCount == FOUR_WHEEL) {
+    if (wheelCount == FOUR_WHEEL) {
         // Calculate speeds for 4-wheel drive
         int speed1 = Matrix4w[0][0] * vx + Matrix4w[0][1] * vy + Matrix4w[0][2] * omega;
         int speed2 = Matrix4w[1][0] * vx + Matrix4w[1][1] * vy + Matrix4w[1][2] * omega;
@@ -168,7 +176,7 @@ void Drive::move(int vx, int vy, int omega) {
         m2->setSpeed(speed2);
         m3->setSpeed(speed3);
         m4->setSpeed(speed4);
-    } else if (this->wheelCount == THREE_WHEEL) {
+    } else if (wheelCount == THREE_WHEEL) {
         // Calculate speeds for 3-wheel drive
         int speed1 = Matrix3w[0][0] * vx + Matrix3w[0][1] * vy + Matrix3w[0][2] * omega;
         int speed2 = Matrix3w[1][0] * vx + Matrix3w[1][1] * vy + Matrix3w[1][2] * omega;

@@ -24,7 +24,7 @@ enum Direction {
 
 // Base Motor Class
 class Motor{
-private:
+protected:
     bool reverse; // Direction flag
     bool feedback; // Feedback flag
 
@@ -108,6 +108,13 @@ public:
         pinMode(RPWMpin, OUTPUT);
         pinMode(LENpin, OUTPUT);
         pinMode(RENpin, OUTPUT);
+    }
+
+    BTS7960(int LPWMpin, int RPWMpin, bool reverse = false) : Motor(reverse), LPWMpin(LPWMpin), RPWMpin(RPWMpin) {
+        LENpin = -1; // Not used
+        RENpin = -1; // Not used
+        pinMode(LPWMpin, OUTPUT);
+        pinMode(RPWMpin, OUTPUT);
     }
 
     void spin(int speed, Direction direction) override;

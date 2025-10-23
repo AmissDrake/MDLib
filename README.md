@@ -1,6 +1,6 @@
 # MDLib
 
-![v1.1.1](https://img.shields.io/badge/Version-1.1.1-blue)
+![v1.2.0](https://img.shields.io/badge/Version-1.2.0-blue)
 
 An intuitive, object-oriented Arduino library for simplifying the control of DC motors and complex holonomic drive systems.
 
